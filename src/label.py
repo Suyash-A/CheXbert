@@ -125,7 +125,8 @@ def save_preds(y_pred, csv_path, out_path):
     df.replace(3, -1, inplace=True)     #uncertain class is -1
     df.replace(2, 0, inplace=True)      #negative class is 0 
     
-    df.to_csv(os.path.join(out_path, 'labeled_reports.csv'), index=False)
+#    df.to_csv(os.path.join(out_path, 'labeled_reports.csv'), index=False)
+    df.to_csv(out_path, index=False)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Label a csv file containing radiology reports')
