@@ -217,6 +217,20 @@ def model_from_ckpt(model, ckpt_path):
 
      checkpoint = torch.load(ckpt_path)
      model.load_state_dict(checkpoint['model_state_dict'])
+
+     # # Load checkpoint with explicit map_location
+     # def map_location(storage, loc):
+     #      return storage.cuda() if torch.cuda.is_available() else storage.cpu()
+
+     # checkpoint = torch.load(ckpt_path, map_location=map_location)
+     # # Remove 'module.' from the keys of the state_dict
+     # new_state_dict = {}
+     # for k, v in checkpoint['model_state_dict'].items():
+     #      name = k[7:]
+     #      new_state_dict[name] = v
+     # # model.load_state_dict(new_state_dict)
+     # model.load_state_dict(new_state_dict, strict=False)
+     
      optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
 
      return (model, optimizer, device)

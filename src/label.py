@@ -64,15 +64,29 @@ def label(checkpoint_path, csv_path):
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     if torch.cuda.device_count() > 0: #works even if only 1 GPU available
         print("Using", torch.cuda.device_count(), "GPUs!")
-        model = nn.DataParallel(model) #to utilize multiple GPU's
+        # model = nn.DataParallel(model) #to utilize multiple GPU's
         model = model.to(device)
         checkpoint = torch.load(checkpoint_path)
-        model.load_state_dict(checkpoint['model_state_dict'])
+        # OLD
+        # model.load_state_dict(checkpoint['model_state_dict'])
+        # OLD
+        # NEW
+        # model.load_state_dict(checkpoint['model_state_dict'], strict=False)
+        new_state_dict = OrderedDict()
+        for k, v in checkpoint['model_state_dict'].items():
+            # For training
+            name = k[7:] # remove `module.`
+            # For labeling
+            # name = k
+            new_state_dict[name] = v
+        model.load_state_dict(new_state_dict)
+        # NEW
     else:
         checkpoint = torch.load(checkpoint_path, map_location=torch.device('cpu'))
         new_state_dict = OrderedDict()
         for k, v in checkpoint['model_state_dict'].items():
             name = k[7:] # remove `module.`
+            # name = k
             new_state_dict[name] = v
         model.load_state_dict(new_state_dict)
         

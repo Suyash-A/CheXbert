@@ -17,6 +17,8 @@ def tokenize(impressions, tokenizer):
         new_impressions = []
         print("\nTokenizing report impressions. All reports are cut off at 512 tokens.")
         for i in tqdm(range(impressions.shape[0])):
+                if not isinstance(impressions.iloc[i], str):
+                        impressions.iloc[i] = ""
                 tokenized_imp = tokenizer.tokenize(impressions.iloc[i])
                 if tokenized_imp: #not an empty report
                         res = tokenizer.encode_plus(tokenized_imp)['input_ids']

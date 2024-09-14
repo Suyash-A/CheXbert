@@ -1,5 +1,6 @@
 NUM_EPOCHS = 8        #Number of epochs to train for
-BATCH_SIZE = 18       #Change this depending on GPU memory
+# BATCH_SIZE = 8       #Change this depending on GPU memory
+BATCH_SIZE = 64       #Change this depending on GPU memory
 NUM_WORKERS = 4       #A value of 0 means the main process loads the data
 LEARNING_RATE = 2e-5
 LOG_EVERY = 200       #iterations after which to log status during training

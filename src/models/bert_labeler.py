@@ -20,6 +20,9 @@ class bert_labeler(nn.Module):
             self.bert = AutoModel.from_pretrained("emilyalsentzer/Bio_ClinicalBERT")
         else:
             self.bert = BertModel.from_pretrained('bert-base-uncased')
+            # self.bert = BertModel.from_pretrained('bionlp/bluebert_pubmed_mimic_uncased_L-12_H-768_A-12')
+            # self.bert = BertModel.from_pretrained('bionlp/bluebert_pubmed_mimic_uncased_L-24_H-1024_A-16')
+            # self.bert = BertModel.from_pretrained('bert-large-uncased')
             
         if freeze_embeddings:
             for param in self.bert.embeddings.parameters():
